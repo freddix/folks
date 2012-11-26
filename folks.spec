@@ -1,7 +1,7 @@
 Summary:	GObject contact aggregation library
 Name:		folks
 Version:	0.8.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.8/%{name}-%{version}.tar.xz
@@ -12,7 +12,7 @@ BuildRequires:	automake
 BuildRequires:	dbus-glib-devel
 BuildRequires:	evolution-data-server-devel
 BuildRequires:	gobject-introspection-devel
-BuildRequires:	libgee-devel
+BuildRequires:	libgee06-devel
 BuildRequires:	libsocialweb-devel
 BuildRequires:	libtool
 BuildRequires:	pkg-config
