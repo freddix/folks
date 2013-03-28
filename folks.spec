@@ -1,23 +1,23 @@
 Summary:	GObject contact aggregation library
 Name:		folks
-Version:	0.8.0
-Release:	2
+Version:	0.9.1
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.8/%{name}-%{version}.tar.xz
-# Source0-md5:	5664f85c4acdda2934cbd08a9d3d78e3
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.9/%{name}-%{version}.tar.xz
+# Source0-md5:	4c7fc50c24994570c021940207497f3d
 URL:		http://telepathy.freedesktop.org/wiki/Folks
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel
 BuildRequires:	evolution-data-server-devel
 BuildRequires:	gobject-introspection-devel
-BuildRequires:	libgee06-devel
+BuildRequires:	libgee-devel
 BuildRequires:	libsocialweb-devel
 BuildRequires:	libtool
 BuildRequires:	pkg-config
 BuildRequires:	telepathy-glib-devel
-BuildRequires:	tracker-devel
+BuildRequires:	tracker-devel >= 0.16.0
 BuildRequires:	vala-vapigen
 Requires(post,postun):	glib-gio-gsettings
 Requires:	%{name}-libs = %{version}-%{release}
@@ -98,16 +98,17 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/folks/??/backends/eds
 %dir %{_libdir}/folks/??/backends/key-file
 %dir %{_libdir}/folks/??/backends/libsocialweb
+%dir %{_libdir}/folks/??/backends/ofono
 %dir %{_libdir}/folks/??/backends/telepathy
 %dir %{_libdir}/folks/??/backends/tracker
 
 %attr(755,root,root) %{_libdir}/folks/??/backends/eds/eds.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/key-file/key-file.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/libsocialweb/libsocialweb.so
+%attr(755,root,root) %{_libdir}/folks/??/backends/ofono/ofono.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/telepathy/telepathy.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/tracker/tracker.so
 
-%{_datadir}/GConf/gsettings/folks.convert
 %{_datadir}/glib-2.0/schemas/org.freedesktop.folks.gschema.xml
 
 %files libs
