@@ -1,13 +1,11 @@
 Summary:	GObject contact aggregation library
 Name:		folks
-Version:	0.9.5
+Version:	0.9.6
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.9/%{name}-%{version}.tar.xz
-# Source0-md5:	6faaf2c4de0e0863a5272f19837c693e
-Patch0:		9c61256d5f92950d7c8a96a7c17ef5a8bd911006.patch
-Patch1:		f707b604734f787692cf94a7daffb4edf349a476.patch
+# Source0-md5:	c3759db485f9ac5fd6c28c47e89123b0
 URL:		http://telepathy.freedesktop.org/wiki/Folks
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -51,8 +49,6 @@ This is the package containing the header files for Folks library.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
