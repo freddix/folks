@@ -1,7 +1,7 @@
 Summary:	GObject contact aggregation library
 Name:		folks
 Version:	0.9.6
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.9/%{name}-%{version}.tar.xz
@@ -13,16 +13,16 @@ BuildRequires:	dbus-glib-devel
 BuildRequires:	evolution-data-server-devel >= 3.10.0
 BuildRequires:	gobject-introspection-devel >= 1.38.0
 BuildRequires:	libgee-devel
-BuildRequires:	libsocialweb-devel
+#BuildRequires:	libsocialweb-devel
 BuildRequires:	libtool
 BuildRequires:	pkg-config
 BuildRequires:	telepathy-glib-devel
-BuildRequires:	tracker-devel >= 0.16.0
+#BuildRequires:	tracker-devel >= 0.16.0
 BuildRequires:	vala-vapigen
 Requires(post,postun):	glib-gio-gsettings
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	evolution-data-server
-Requires:	libsocialweb
+#Requires:	libsocialweb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -57,10 +57,9 @@ This is the package containing the header files for Folks library.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-silent-rules 		\
-	--enable-tracker-backend	\
-	--enable-eds-backend		\
-	--enable-vala
+	--disable-fatal-warnings	\
+	--disable-libsocialweb-backend	\
+	--disable-silent-rules
 %{__make}
 
 %install
@@ -69,7 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/folks/*/backends/*/*.la
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/GConf
 
 %find_lang %{name}
 
@@ -95,35 +96,37 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/folks
 %dir %{_libdir}/folks/??
 %dir %{_libdir}/folks/??/backends
+%dir %{_libdir}/folks/??/backends/bluez
 %dir %{_libdir}/folks/??/backends/eds
 %dir %{_libdir}/folks/??/backends/key-file
-%dir %{_libdir}/folks/??/backends/libsocialweb
 %dir %{_libdir}/folks/??/backends/ofono
 %dir %{_libdir}/folks/??/backends/telepathy
-%dir %{_libdir}/folks/??/backends/tracker
+#%dir %{_libdir}/folks/??/backends/libsocialweb
+#%dir %{_libdir}/folks/??/backends/tracker
 
+%attr(755,root,root) %{_libdir}/folks/??/backends/bluez/bluez.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/eds/eds.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/key-file/key-file.so
-%attr(755,root,root) %{_libdir}/folks/??/backends/libsocialweb/libsocialweb.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/ofono/ofono.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/telepathy/telepathy.so
-%attr(755,root,root) %{_libdir}/folks/??/backends/tracker/tracker.so
+#%attr(755,root,root) %{_libdir}/folks/??/backends/libsocialweb/libsocialweb.so
+#%attr(755,root,root) %{_libdir}/folks/??/backends/tracker/tracker.so
 
 %{_datadir}/glib-2.0/schemas/org.freedesktop.folks.gschema.xml
 
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %ghost %{_libdir}/libfolks-eds.so.??
-%attr(755,root,root) %ghost %{_libdir}/libfolks-libsocialweb.so.??
 %attr(755,root,root) %ghost %{_libdir}/libfolks-telepathy.so.??
-%attr(755,root,root) %ghost %{_libdir}/libfolks-tracker.so.??
 %attr(755,root,root) %ghost %{_libdir}/libfolks.so.??
 %attr(755,root,root) %{_libdir}/libfolks-eds.so.*.*.*
-%attr(755,root,root) %{_libdir}/libfolks-libsocialweb.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfolks-telepathy.so.*.*.*
-%attr(755,root,root) %{_libdir}/libfolks-tracker.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfolks.so.*.*.*
 %{_libdir}/girepository-1.0/*.typelib
+#%attr(755,root,root) %ghost %{_libdir}/libfolks-libsocialweb.so.??
+#%attr(755,root,root) %ghost %{_libdir}/libfolks-tracker.so.??
+#%attr(755,root,root) %{_libdir}/libfolks-libsocialweb.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libfolks-tracker.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
