@@ -1,11 +1,11 @@
 Summary:	GObject contact aggregation library
 Name:		folks
-Version:	0.9.6
-Release:	2
+Version:	0.10.0
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.9/%{name}-%{version}.tar.xz
-# Source0-md5:	c3759db485f9ac5fd6c28c47e89123b0
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/folks/0.10/%{name}-%{version}.tar.xz
+# Source0-md5:	c7134d50bba0775a9cabc6078ee19b50
 URL:		http://telepathy.freedesktop.org/wiki/Folks
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -19,6 +19,9 @@ BuildRequires:	pkg-config
 BuildRequires:	telepathy-glib-devel
 #BuildRequires:	tracker-devel >= 0.16.0
 BuildRequires:	vala-vapigen
+# VALA_CHECK_PACKAGES
+BuildRequires:	vala-devel
+BuildRequires:	zeitgeist-devel
 Requires(post,postun):	glib-gio-gsettings
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	evolution-data-server
@@ -59,6 +62,7 @@ This is the package containing the header files for Folks library.
 %configure \
 	--disable-fatal-warnings	\
 	--disable-libsocialweb-backend	\
+	--disable-schemas-compile	\
 	--disable-silent-rules
 %{__make}
 
@@ -97,6 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/folks/??
 %dir %{_libdir}/folks/??/backends
 %dir %{_libdir}/folks/??/backends/bluez
+%dir %{_libdir}/folks/??/backends/dummy
 %dir %{_libdir}/folks/??/backends/eds
 %dir %{_libdir}/folks/??/backends/key-file
 %dir %{_libdir}/folks/??/backends/ofono
@@ -105,6 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %{_libdir}/folks/??/backends/tracker
 
 %attr(755,root,root) %{_libdir}/folks/??/backends/bluez/bluez.so
+%attr(755,root,root) %{_libdir}/folks/??/backends/dummy/dummy.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/eds/eds.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/key-file/key-file.so
 %attr(755,root,root) %{_libdir}/folks/??/backends/ofono/ofono.so
@@ -116,9 +122,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
+%attr(755,root,root) %ghost %{_libdir}/libfolks-dummy.so.??
 %attr(755,root,root) %ghost %{_libdir}/libfolks-eds.so.??
 %attr(755,root,root) %ghost %{_libdir}/libfolks-telepathy.so.??
 %attr(755,root,root) %ghost %{_libdir}/libfolks.so.??
+%attr(755,root,root) %{_libdir}/libfolks-dummy.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfolks-eds.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfolks-telepathy.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfolks.so.*.*.*
